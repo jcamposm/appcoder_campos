@@ -1,5 +1,4 @@
 import Checkbox from 'expo-checkbox';
-import React, { useState } from 'react';
 import { View, StyleSheet, Text, Button, Modal as NewModal } from "react-native"
 
 const Modal = ({
@@ -7,26 +6,32 @@ const Modal = ({
   actionDeleteItem,
   itemSelected,
   onDismissModal,
-  //isSelected,
+  onChangeColor,
+  isSelected,
 }) => {
-    const [isSelected, setSelection] = useState(false);
+    //const [isSelected, setSelection] = useState(false);
   return (
     <NewModal animationType="fade" transparent={true} visible={isVisible}>
       <View style={styles.modalContainer}>
         <View style={styles.modalStyle}>
           <Text style={styles.modalTextStyle}>{itemSelected}</Text>
-          <Button title="Delete" onPress={() => actionDeleteItem()} />
-          <Button title="Dismiss" onPress={() => onDismissModal(false)} />
+          <View style={styles.buttonModal}>
+          <Button style={styles.button} title="Volver" onPress={() => onDismissModal(false)} />
+          <Button style={styles.button} title="Borrar" onPress={() => actionDeleteItem()} />
 
+          </View>
+          <Text style={styles.label}>¿Quiéres completar la tarea?</Text>
           <Checkbox
+          //value={isSelected}
+          //onValueChange={onChangeColor}
           value={isSelected}
-          onValueChange={setSelection}
+          onValueChange={onChangeColor}
           style={styles.checkbox}
         />
-        <Text style={styles.label}>Do you like React Native?</Text>
+
 
         </View>
-        <Text>Is CheckBox selected: {isSelected ? '👍' : '👎'}</Text>
+        <Text>La tarea está: {isSelected ? '👍' : '👎'}</Text>
       </View>
     </NewModal>
   )
@@ -43,9 +48,9 @@ const styles = StyleSheet.create({
   },
   modalStyle: {
     margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 40,
+    backgroundColor: "#d4fff7",
+    borderRadius: 10,
+    padding: 50,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -62,6 +67,7 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'row',
     marginBottom: 20,
+    justifyContent: 'space-around',
   },
   checkbox: {
     marginTop: 20,
@@ -70,4 +76,14 @@ const styles = StyleSheet.create({
   label: {
     margin: 8,
   },
+  buttonModal:{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+
+  },
+  button: {
+    margin: 1,
+    padding: 1,
+    backgroundColor: 'red',
+  }
 })

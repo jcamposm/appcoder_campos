@@ -5,12 +5,12 @@ const AddItem = ({ onChange, textValue, onAddItem }) => {
   return (
     <View style={styles.inputContainer}>
       <TextInput
-        placeholder="Write your product"
+        placeholder="Escribe tus productos"
         style={styles.addItemInput}
         onChangeText={onChange}
         value={textValue}
       />
-      <Button title="ADD" onPress={onAddItem} />
+      <Button title="Añadir" onPress={onAddItem} />
     </View>
   )
 }
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   addItemInput: {
     backgroundColor: "#FFFFFF",
-    borderRadius: 15,
+    borderRadius: 10,
     padding: 10,
     width: "80%",
     height: 45,

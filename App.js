@@ -16,8 +16,15 @@ export default function App() {
     setTextItem(text)
   }
 
+  const onChangeColor = (item) => {
+//setItemSelected(item)
+setSelection(item)
+
+  }
+
   const addItem = () => {
     setList(prevState => [...prevState, textItem])
+    //setList(const object={...list, select: 'false'})
     setTextItem("")
   }
 
@@ -27,7 +34,6 @@ export default function App() {
   }
 
   const onHandleDelete = item => {
-    console.log(item)
     setList(prevState => prevState.filter(element => element !== item))
     setModalVisible(!modalVisible)
   }
@@ -35,17 +41,18 @@ export default function App() {
   const renderItem = ({ item }) => (
     <View style={styles.renderItemStyle}>
       <Text>{item}</Text>
-      <Button title="Edit" onPress={() => handleModal(item)} />
-      <Checkbox value={isSelected} onValueChange={setSelection}></Checkbox>
+
+      <Checkbox value={isSelected} onValueChange={onChangeColor}></Checkbox>
       <Text style={styles.textState}>Estado: {isSelected ? 'Completado' : 'Incompleto'}</Text>
   
+      <Button title="Edit" onPress={() => handleModal(item)} />
     </View>
   )
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Shopping List</Text>
+        <Text style={styles.title}>Lista de compras</Text>
         <AddItem
           onChange={onHandleChangeItem}
           textValue={textItem}
@@ -65,7 +72,8 @@ export default function App() {
         itemSelected={itemSelected}
         actionDeleteItem={() => onHandleDelete(itemSelected)}
         onDismissModal={setModalVisible}
-        //isSelected={isSelected}
+        onChangeColor={onChangeColor}
+        isSelected={isSelected}
         //actionChangeColor={onChangeColor(isSelected)}
 
       />
@@ -76,7 +84,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#E7EAF2",
+    backgroundColor: "#89cbc0",
   },
   titleContainer: {
     height: 200,
@@ -85,7 +93,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 30,
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: "500",
     color: "#1E283C",
   },
@@ -102,7 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     padding: 10,
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
     shadowColor: "black",
     shadowOpacity: 0.3,
