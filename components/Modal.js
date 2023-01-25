@@ -8,19 +8,20 @@ const Modal = ({
   onDismissModal,
   onChangeColor,
   isSelected,
+  roboto,
 }) => {
     //const [isSelected, setSelection] = useState(false);
   return (
     <NewModal animationType="fade" transparent={true} visible={isVisible}>
       <View style={styles.modalContainer}>
         <View style={styles.modalStyle}>
-          <Text style={styles.modalTextStyle}>{itemSelected}</Text>
+          <Text style={{...styles.modalTextStyle, ...roboto}}>{itemSelected}</Text>
           <View style={styles.buttonModal}>
           <Button style={styles.button} title="Volver" onPress={() => onDismissModal(false)} />
           <Button style={styles.button} title="Borrar" onPress={() => actionDeleteItem()} />
 
           </View>
-          <Text style={styles.label}>¿Quiéres completar la tarea?</Text>
+          <Text style={{...styles.label, ...roboto}}>¿Quiéres completar la tarea?</Text>
           <Checkbox
           //value={isSelected}
           //onValueChange={onChangeColor}
@@ -84,6 +85,6 @@ const styles = StyleSheet.create({
   button: {
     margin: 1,
     padding: 1,
-    backgroundColor: 'red',
+    color: 'red',
   }
 })

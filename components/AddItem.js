@@ -1,12 +1,12 @@
 import { StyleSheet, TextInput, View, Button } from "react-native"
 import React from "react"
 
-const AddItem = ({ onChange, textValue, onAddItem }) => {
+const AddItem = ({ onChange, textValue, onAddItem, roboto }) => {
   return (
     <View style={styles.inputContainer}>
       <TextInput
         placeholder="Escribe tus productos"
-        style={styles.addItemInput}
+        style={{...styles.addItemInput, ...roboto}}
         onChangeText={onChange}
         value={textValue}
       />

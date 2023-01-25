@@ -3,14 +3,26 @@ import { StyleSheet, Text, View, Button, FlatList} from "react-native"
 import Modal from "./components/Modal"
 import AddItem from "./components/AddItem"
 import Checkbox from 'expo-checkbox';
+import { useFonts } from 'expo-font'
+import AppLoading from 'expo-app-loading'
+import FinishScreen from './screens/FinishScreen'
+import FinishList from './components/FinishList'
 
 
 export default function App() {
+
+  const [loaded] = useFonts({
+    Roboto: require('./assets/fonts/Roboto-Regular.ttf'),
+    RobotoBold: require('./assets/fonts/Roboto-Bold.ttf'),
+    RobotoThin: require('./assets/fonts/Roboto-Thin.ttf')
+  })
+
   const [textItem, setTextItem] = useState("")
   const [list, setList] = useState([])
   const [itemSelected, setItemSelected] = useState("")
   const [modalVisible, setModalVisible] = useState(false)
   const [isSelected, setSelection] = useState(false)
+  const [isComplete, setComplete] = useState(false)
 
   const onHandleChangeItem = text => {
     setTextItem(text)
@@ -19,6 +31,7 @@ export default function App() {
   const onChangeColor = (item) => {
 //setItemSelected(item)
 setSelection(item)
+setComplete()
 
   }
 
@@ -34,9 +47,25 @@ setSelection(item)
   }
 
   const onHandleDelete = item => {
+    if(isSelected == true) {
     setList(prevState => prevState.filter(element => element !== item))
-    setModalVisible(!modalVisible)
+    setModalVisible(!modalVisible)}
+    else{setModalVisible(!modalVisible)
+    alert("Complete la tarea antes de eliminarla de la lista")}
   }
+  let content = <FinishList finishSale={() => finishingSale()}/>
+
+  const finishingSale = () => {
+    if(isSelected === true) {
+      setComplete(true)
+  }else{alert("Por Favor, termine sus tareas pendientes")
+   }
+  }
+
+    if(isComplete === true && isSelected === true) {
+      content = <FinishScreen/>
+  }
+  
 
   const renderItem = ({ item }) => (
     <View style={styles.renderItemStyle}>
@@ -49,24 +78,29 @@ setSelection(item)
     </View>
   )
 
+  if(!loaded) {return null}
+
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Lista de compras</Text>
+        <Text style={styles.title}>Lista de Tareas</Text>
         <AddItem
           onChange={onHandleChangeItem}
           textValue={textItem}
           onAddItem={addItem}
+          roboto={{fontFamily: "Roboto"}}
         />
       </View>
       <View style={styles.listContainer} >
-        <FlatList
-          data={list}
-          renderItem={renderItem}
-          keyExtractor={item => item}
-          
-        />
-      </View>
+      <FlatList
+data={list}
+renderItem={renderItem}
+keyExtractor={item => item}
+
+/>
+
+        </View>
       <Modal
         isVisible={modalVisible}
         itemSelected={itemSelected}
@@ -74,9 +108,10 @@ setSelection(item)
         onDismissModal={setModalVisible}
         onChangeColor={onChangeColor}
         isSelected={isSelected}
+        roboto={{fontFamily: "Roboto"}}
         //actionChangeColor={onChangeColor(isSelected)}
-
       />
+      {content}
     </View>
   )
 }
@@ -95,7 +130,8 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     fontSize: 30,
     fontWeight: "500",
-    color: "#1E283C",
+    color: "#000000",
+    fontFamily: "RobotoBold"
   },
   listContainer: {
     flex: 2,
@@ -141,5 +177,8 @@ const styles = StyleSheet.create({
   },
   textState:{
     fontSize: 10,
+  },
+  buttonFinish:{
+    marginBottom: 0,
   }
-})
+  })
