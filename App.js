@@ -41,6 +41,12 @@ setComplete()
     setTextItem("")
   }
 
+  const OnHandleDeleteAll = () => {
+    setSelection(false)
+    setComplete(false)
+    setList([])
+  }
+
   const handleModal = item => {
     setItemSelected(item)
     setModalVisible(true)
@@ -63,7 +69,9 @@ setComplete()
   }
 
     if(isComplete === true && isSelected === true) {
-      content = <FinishScreen/>
+      content = <FinishScreen 
+      DeleteAll={() => OnHandleDeleteAll()}
+      />
   }
   
 
