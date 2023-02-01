@@ -4,7 +4,7 @@ import React from 'react'
 const FinishScreen = ({DeleteAll}) => {
   return (
     <View>
-      <Text style={styles.title}>Felicidades ha terminado sus tareas</Text>
+      <Text style={styles.title}>Servicio agendado exitosamente</Text>
       <Button title="Volver a empezar" onPress={DeleteAll}/>
     </View>
   )

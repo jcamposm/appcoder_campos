@@ -5,7 +5,7 @@ const AddItem = ({ onChange, textValue, onAddItem, roboto }) => {
   return (
     <View style={styles.inputContainer}>
       <TextInput
-        placeholder="Escribe tus productos"
+        placeholder="Escribe tus especificaciones"
         style={{...styles.addItemInput, ...roboto}}
         onChangeText={onChange}
         value={textValue}

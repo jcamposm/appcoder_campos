@@ -5,7 +5,7 @@ const FinishList = ({finishSale}) => {
 
 return (
     <View style={styles.buttonFinish} >
-    <Button title="Finalizar Tareas" onPress={finishSale} />
+    <Button title="Agendar Servicio" onPress={finishSale} />
 </View>
 )
 }
